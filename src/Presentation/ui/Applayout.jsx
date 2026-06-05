@@ -1,16 +1,18 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useNavigation } from "react-router-dom";
+import fetchSongs from "../../data/FetchSong";
+import { usePlaylist } from "../../domain/PlaylistContext";
+import Searchbar from "../pages/Home/Searchbar";
+import Loading from "./Loading";
+
 
 const Applayout = () => {
-const navigate = useNavigate();
 
+  const {state} = useNavigation();
+  
   return (
     <div>
-        <Link to="/">Home</Link>
-        <input/>
-        <Link to="/install">Install App</Link>
-        <Link to="/signup">Sign up</Link>
-        <button onClick={()=>navigate("/login")}>Log in</button>
-      <Outlet/>
+      <Searchbar/>
+      {state === "loading" ? <Loading/> : <Outlet/> }
     </div>
   );
 };
